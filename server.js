@@ -66,9 +66,12 @@ app.get('/starwars/people', async (req, res) => {
   // when this route is called, it returns /chomp data
   app.get('/food', async (req, res) => {
     const { name } = req.query
+    const { ingredients } = req.query
+    // const { diet } = req.query
+
     try {
       // const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=Nutella`
-      const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=${name}`
+      const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=${name}&ingredients=${ingredients}`
 
       // fetch returns a promise, await tells us to wait until the promise resolves
       const p = await fetch(url)
