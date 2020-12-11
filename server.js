@@ -6,8 +6,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const fetch = require('node-fetch')
 
-const { random, randomD, randomRolls } = require('./utils')
-
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -27,28 +25,6 @@ app.get('/about', (req, res) => {
   res.json({ about: 'This service pulls data about hundreds of thousands of food and gives up-to-date information about the allergen and dietary status of ingredients, and whether it contains any palm oil product.' })
 })
 
-// Random number route
-// Test this route with: http://localhost:4000/random?n=99
-// Where n=99 sets the range of the random number returned
-// app.get('/random', (req, res) => {
-//   const { n } = req.query
-//   const value = random(n)
-//   res.json({ value })
-// })
-
-// /random?n=3&s=6
-app.get('/randomrolls', (req, res) => {
-  const { n, s } = req.query
-  const rolls = randomRolls(n, s)
-  res.json({ rolls }) // { "rolls": [1,2,3] }
-})
-
-app.get('/randomdie', (req, res) => {
-  const { n } = req.query
-  const value = randomD(n)
-  res.json({ value, range:n })
-  })
-
   // when this route is called, it returns /starwars/people?id=****
 app.get('/starwars/people', async (req, res) => {
   const { id } = req.query
@@ -63,33 +39,28 @@ app.get('/starwars/people', async (req, res) => {
   res.json(swjson)
 })
 
-  // when this route is called, it returns /chomp data
-  app.get('/food', async (req, res) => {
-    const { name } = req.query
-    const { ingredients } = req.query
-    // const { diet } = req.query
+// when this route is called, it returns /chomp data
+app.get('/food', async (req, res) => {
+  const { name } = req.query
+  const { ingredients } = req.query
+  // const { diet } = req.query
 
-    try {
-      // const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=Nutella`
-      const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=${name}&ingredients=${ingredients}`
+  try {
+    // const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=Nutella`
+    const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=${name}&ingredients=${ingredients}`
 
-      // fetch returns a promise, await tells us to wait until the promise resolves
-      const p = await fetch(url)
-      const text = await p.json()
-      console.log(text)
-      res.json(text)
-      // put in request, stream the response as json
-      // const chjson = await p.json()
-      // const p2 = await fetch(chjson.palm_oil_ingredients)
-      // const poijson = await p2.json()
-      // chjson.palm_oil_ingredients = poijson
-      // // get response
-      // res.json(chjson)
-    } catch(error) {
-      console.log(error)
-      res.json(error.message)
-    }
-  })
+    // fetch returns a promise, await tells us to wait until the promise resolves
+    const p = await fetch(url)
+    const text = await p.json()
+    console.log(text)
+    res.json(text)
+    // put in request, stream the response as json
+    // get response
+  } catch(error) {
+    console.log(error)
+    res.json(error.message)
+  }
+})
 
 
 const port = 4000
