@@ -22,8 +22,10 @@ app.get('/', (req, res) => {
 // Test this route with:
 app.get('/about', (req, res) => {
   // This Object is converted to JSON and returned.
-  res.json({ about: 'This service pulls data about hundreds of thousands of food and gives up-to-date information about the allergen and dietary status of ingredients, and whether it contains any palm oil product.' })
-})
+  
+  res.json({ 
+      about: 'This service pulls data about hundreds of thousands of food products and gives up-to-date information about the allergen and dietary status of ingredients, and whether it contains any palm oil product.' })
+  })
 
   // when this route is called, it returns /starwars/people?id=****
 app.get('/starwars/people', async (req, res) => {
