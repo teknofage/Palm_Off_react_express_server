@@ -27,20 +27,6 @@ app.get('/about', (req, res) => {
       about: 'This service pulls data about hundreds of thousands of food products and gives up-to-date information about the allergen and dietary status of ingredients, and whether it contains any palm oil product.' })
   })
 
-  // when this route is called, it returns /starwars/people?id=****
-app.get('/starwars/people', async (req, res) => {
-  const { id } = req.query
-  // fetch returns a promise, await tells us to wait until the promise resolves
-  const p = await fetch(`https://swapi.dev/api/people/${id}`)
-  // put in request, stream the response as json
-  const swjson = await p.json()
-  const p2 = await fetch(swjson.homeworld)
-  const hwjson = await p2.json()
-  swjson.homeworld = hwjson
-  // get response
-  res.json(swjson)
-})
-
 // when this route is called, it returns /chomp data
 app.get('/food', async (req, res) => {
   const { name } = req.query
@@ -50,7 +36,7 @@ app.get('/food', async (req, res) => {
   try {
     // const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=Nutella`
     const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=${name}&ingredients=${ingredients}`
-
+    // console.log(url)
     // fetch returns a promise, await tells us to wait until the promise resolves
     const p = await fetch(url)
     const text = await p.json()
