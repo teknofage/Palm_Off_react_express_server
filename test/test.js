@@ -5,13 +5,47 @@
 // Import Chai
 const { expect } = require('chai')
 
-it("Should return a the homepage" => {
+
+
+
+it("Should return a the homepage", () => {
 
 })
 
 it("Should return a list of ingredients", () => {
 
 })
+
+
+it("Should return a list of objects with this word", (done) => {
+    // testing the /food route function
+    // use (done) on async routes
+    chai.request(app)
+    .get('/food')
+    .end((err,res) => {
+        if (err) {done(err) }
+        expect(res).to.have.statue(200)
+        done()
+    })
+// test; 
+// what food route receives
+// what the ingredients are that it returns
+
+})
+
+it("Should return some json", () => {
+
+})
+
+
+it("Should capture the input string", () => {
+
+})
+
+it("Should return an error if given wrong input", () => {
+
+})
+
 
 
 // Import the functions you are going to test

@@ -28,9 +28,7 @@ app.get('/about', (req, res) => {
 
 // when this route is called, it returns /chomp data
 app.get('/food', async (req, res) => {
-  const { name } = req.query
-  const { ingredients } = req.query
-  // const { diet } = req.query
+  const { name, ingredients } = req.query
 
   try {
     // const url = `https://chompthis.com/api/v2/food/branded/name.php?api_key=${process.env.CHOMP_API_KEY}&name=Nutella`
@@ -45,7 +43,7 @@ app.get('/food', async (req, res) => {
     // get response
   } catch(error) {
     console.log(error)
-    res.json(error.message)
+    res.json(error)
   }
 })
 
