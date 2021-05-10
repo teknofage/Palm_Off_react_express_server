@@ -49,6 +49,9 @@ app.get('/food', async (req, res) => {
   }
 })
 
+require('./controllers/searches.js')(app);
+require('./controllers/auth.js')(app);
+
 
 const port = 4000
 app.listen(port, () => console.log(`LISTENING ON PORT ${port}`))
