@@ -1,17 +1,20 @@
 /* eslint-disable semi */
 
-require('dotenv').config()
+require('dotenv').config();
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const fetch = require('node-fetch')
+const express = require('express');
+const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
+var cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
-const app = express()
+const app = express();
 
 require('./controllers/auth.js')(app);
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser()); // Add this after you initialize express.
 
 // ** Proxy from React can't get at '/' for some reason?
 // Apparently this is expected behavior... **
@@ -51,7 +54,6 @@ app.get('/food', async (req, res) => {
 
 require('./controllers/searches.js')(app);
 require('./controllers/auth.js')(app);
-
 
 const port = 4000
 app.listen(port, () => console.log(`LISTENING ON PORT ${port}`))
