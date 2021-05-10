@@ -1,5 +1,4 @@
 /* eslint-disable semi */
-
 require('dotenv').config();
 
 const express = require('express');
@@ -51,6 +50,19 @@ app.get('/food', async (req, res) => {
     res.json(error)
   }
 })
+
+var checkAuth = (req, res, next) => {
+  console.log("Checking authentication");
+  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+    req.user = null;
+  } else {
+    var token = req.cookies.nToken;
+    var decodedToken = jwt.decode(token, { complete: true }) || {};
+    req.user = decodedToken.payload;
+  }
+  next();
+};
+app.use(checkAuth);
 
 require('./controllers/searches.js')(app);
 require('./controllers/auth.js')(app);
