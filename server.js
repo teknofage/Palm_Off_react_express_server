@@ -8,6 +8,8 @@ const fetch = require('node-fetch')
 
 const app = express()
 
+require('./controllers/auth.js')(app);
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
