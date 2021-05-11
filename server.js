@@ -6,10 +6,13 @@ const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 var cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const { db } = require('./models/user.js');
+
 
 const app = express();
 
-require('./controllers/auth.js')(app);
+require('./data/palm-off-db');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
